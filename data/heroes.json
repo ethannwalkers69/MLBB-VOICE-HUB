@@ -52,7 +52,7 @@
           "id": "Alice-select-01",
           "category": "Select hero",
           "text": "My kiss, will it grant immortality? Or death.",
-          "audio": "assets/audio/alice/alice-select.ogg.mp3"
+          "audio": "assets/audio/alice/Alice-select.ogg.mp3"
         }
       ]
     },
