@@ -503,6 +503,20 @@
           "audio": "assets/audio/estes/Estes.select.ogg.mp3"
         }
       ]
+    },
+    {
+      "id": "Eudora",
+      "name": "Eudora",
+      "role": "Mage",
+      "portrait": "assets/heroes/Eudora.jpg",
+      "voiceLines": [
+        {
+          "id": "Eudora-seelct",
+          "category": "select hero",
+          "text": "You should be ashamed for not trusting yourself.",
+          "audio": "assets/audio/eudora/Eudora.select.ogg.mp3"
+        }
+      ]
     }
   ]
 }
