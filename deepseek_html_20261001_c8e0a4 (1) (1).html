@@ -1,0 +1,1551 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes" />
+  <title>MLBB Voice Vault · Hero Voice Lines</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            dark: '#08090c',
+            darkAlt: '#0d1017',
+            panel: '#11151d',
+            panelLight: '#1a2029',
+            panelLighter: '#232b37',
+            accent: '#f0b34b',
+            accentBright: '#ffc96b',
+            accentDim: '#8a6428',
+            textMain: '#f5f7fa',
+            textDim: '#8b96a5',
+            cardBorder: '#232b37',
+            gold: '#f0b34b',
+            purple: '#a970ff',
+            cyan: '#4fd1ff',
+          },
+          fontFamily: {
+            display: ['"Inter"', 'system-ui', 'sans-serif'],
+          },
+          animation: {
+            'pulse-glow': 'pulseGlow 2s ease-in-out infinite',
+            'float': 'float 6s ease-in-out infinite',
+            'shimmer': 'shimmer 3s linear infinite',
+          },
+          keyframes: {
+            pulseGlow: {
+              '0%, 100%': { boxShadow: '0 0 20px rgba(240, 179, 75, 0.3)' },
+              '50%': { boxShadow: '0 0 40px rgba(240, 179, 75, 0.6)' },
+            },
+            float: {
+              '0%, 100%': { transform: 'translateY(0)' },
+              '50%': { transform: 'translateY(-6px)' },
+            },
+            shimmer: {
+              '0%': { backgroundPosition: '-200% 0' },
+              '100%': { backgroundPosition: '200% 0' },
+            },
+          },
+        },
+      },
+    };
+  </script>
+  <style>
+    /* ========== GLOBAL ========== */
+    * { -webkit-tap-highlight-color: transparent; }
+
+    body {
+      background: #08090c;
+      background-image: 
+        radial-gradient(ellipse 80% 50% at 50% -20%, rgba(240, 179, 75, 0.12), transparent),
+        radial-gradient(ellipse 60% 40% at 80% 100%, rgba(169, 112, 255, 0.08), transparent),
+        radial-gradient(ellipse 60% 40% at 20% 100%, rgba(79, 209, 255, 0.06), transparent);
+      background-attachment: fixed;
+    }
+
+    ::-webkit-scrollbar { width: 6px; height: 6px; }
+    ::-webkit-scrollbar-track { background: #0d1017; }
+    ::-webkit-scrollbar-thumb { 
+      background: linear-gradient(180deg, #3a4355, #232b37); 
+      border-radius: 10px; 
+    }
+    ::-webkit-scrollbar-thumb:hover { 
+      background: linear-gradient(180deg, #f0b34b, #8a6428); 
+    }
+
+    /* ========== GLASS PANELS ========== */
+    .glass {
+      background: linear-gradient(145deg, rgba(26, 32, 41, 0.85), rgba(17, 21, 29, 0.75));
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 1px solid rgba(42, 50, 64, 0.6);
+    }
+
+    /* ========== HERO CARD ========== */
+    .hero-card {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.4s cubic-bezier(0.2, 0.9, 0.3, 1);
+      background: linear-gradient(145deg, #1a2029, #11151d);
+      border: 1px solid #232b37;
+    }
+    .hero-card::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, transparent 40%, rgba(240, 179, 75, 0.1) 50%, transparent 60%);
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: 2;
+      pointer-events: none;
+    }
+    .hero-card:hover::before { opacity: 1; }
+    .hero-card:hover {
+      transform: translateY(-4px);
+      border-color: rgba(240, 179, 75, 0.5);
+      box-shadow: 
+        0 20px 40px -10px rgba(0, 0, 0, 0.6),
+        0 0 30px -5px rgba(240, 179, 75, 0.3);
+    }
+    .hero-card .hero-portrait {
+      transition: transform 0.6s cubic-bezier(0.2, 0.9, 0.3, 1), filter 0.4s;
+    }
+    .hero-card:hover .hero-portrait {
+      transform: scale(1.08);
+      filter: brightness(1.15) saturate(1.1);
+    }
+
+    .hero-card .glow-ring {
+      position: absolute;
+      inset: -1px;
+      border-radius: inherit;
+      background: linear-gradient(135deg, rgba(240, 179, 75, 0.4), transparent 40%, transparent 60%, rgba(169, 112, 255, 0.3));
+      opacity: 0;
+      transition: opacity 0.4s;
+      z-index: -1;
+      pointer-events: none;
+    }
+    .hero-card:hover .glow-ring { opacity: 1; }
+
+    /* ========== IMAGE FALLBACK ========== */
+    .img-fallback {
+      background: linear-gradient(135deg, #1a2029, #0d1017);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #8b96a5;
+      font-size: 0.7rem;
+      text-transform: uppercase;
+      letter-spacing: 0.1em;
+      font-weight: 500;
+    }
+
+    /* ========== CATEGORY PILL ========== */
+    .category-pill {
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+      position: relative;
+    }
+    .category-pill:not(.active):hover {
+      background: #232b37;
+      border-color: rgba(240, 179, 75, 0.5);
+      transform: translateY(-1px);
+    }
+    .category-pill.active {
+      background: linear-gradient(135deg, #f0b34b, #ffc96b);
+      color: #08090c;
+      font-weight: 700;
+      box-shadow: 
+        0 4px 12px rgba(240, 179, 75, 0.4),
+        0 0 20px rgba(240, 179, 75, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      border-color: #f0b34b;
+    }
+
+    /* ========== LETTER PILL ========== */
+    .letter-pill {
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    .letter-pill:not(.active):hover {
+      background: #232b37;
+      border-color: rgba(240, 179, 75, 0.5);
+      transform: translateY(-2px);
+    }
+    .letter-pill.active {
+      background: linear-gradient(135deg, #f0b34b, #ffc96b);
+      color: #08090c;
+      font-weight: 800;
+      box-shadow: 
+        0 4px 12px rgba(240, 179, 75, 0.4),
+        0 0 20px rgba(240, 179, 75, 0.3),
+        inset 0 1px 0 rgba(255, 255, 255, 0.3);
+      border-color: #f0b34b;
+    }
+
+    /* ========== VOICE CARD ========== */
+    .voice-card, .interaction-card {
+      transition: all 0.3s cubic-bezier(0.2, 0.9, 0.3, 1);
+      position: relative;
+      overflow: hidden;
+    }
+    .voice-card::before, .interaction-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: linear-gradient(180deg, #f0b34b, #a970ff);
+      opacity: 0;
+      transition: opacity 0.3s;
+    }
+    .voice-card:hover, .interaction-card:hover {
+      transform: translateX(4px);
+      border-color: rgba(240, 179, 75, 0.4);
+      background: #1a2029;
+    }
+    .voice-card:hover::before, .interaction-card:hover::before { opacity: 1; }
+    .voice-card.active, .interaction-card.active {
+      border-color: #f0b34b;
+      background: linear-gradient(145deg, #1e2430, #171c26);
+      box-shadow: 
+        0 0 0 1px rgba(240, 179, 75, 0.3),
+        0 8px 24px -8px rgba(240, 179, 75, 0.4),
+        inset 0 0 20px rgba(240, 179, 75, 0.05);
+    }
+    .voice-card.active::before, .interaction-card.active::before {
+      opacity: 1;
+      width: 4px;
+    }
+
+    /* ========== PLAY BUTTON ========== */
+    .play-voice-btn, .play-interaction-btn {
+      transition: all 0.25s cubic-bezier(0.2, 0.9, 0.3, 1);
+    }
+    .play-voice-btn:hover, .play-interaction-btn:hover {
+      transform: scale(1.1);
+      box-shadow: 0 0 20px rgba(240, 179, 75, 0.5);
+    }
+    .play-voice-btn:active, .play-interaction-btn:active {
+      transform: scale(0.95);
+    }
+
+    /* ========== PROGRESS SLIDER ========== */
+    input[type="range"].progress-slider {
+      -webkit-appearance: none;
+      appearance: none;
+      background: transparent;
+      cursor: pointer;
+    }
+    input[type="range"].progress-slider::-webkit-slider-runnable-track {
+      height: 4px;
+      background: linear-gradient(90deg, #f0b34b, #ffc96b, #232b37);
+      background-size: 200% 100%;
+      border-radius: 2px;
+    }
+    input[type="range"].progress-slider::-moz-range-track {
+      height: 4px;
+      background: #232b37;
+      border-radius: 2px;
+    }
+    input[type="range"].progress-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 14px;
+      width: 14px;
+      margin-top: -5px;
+      border-radius: 50%;
+      background: #f0b34b;
+      box-shadow: 
+        0 0 0 3px rgba(240, 179, 75, 0.2),
+        0 0 12px #f0b34b;
+      transition: all 0.2s;
+    }
+    input[type="range"].progress-slider::-webkit-slider-thumb:hover {
+      transform: scale(1.2);
+      box-shadow: 
+        0 0 0 5px rgba(240, 179, 75, 0.25),
+        0 0 16px #f0b34b;
+    }
+
+    input[type="range"].volume-slider::-webkit-slider-runnable-track {
+      height: 3px;
+      background: #232b37;
+      border-radius: 2px;
+    }
+    input[type="range"].volume-slider::-webkit-slider-thumb {
+      -webkit-appearance: none;
+      appearance: none;
+      height: 12px;
+      width: 12px;
+      margin-top: -4.5px;
+      border-radius: 50%;
+      background: #f0b34b;
+      box-shadow: 0 0 8px rgba(240, 179, 75, 0.6);
+    }
+
+    /* ========== HEADER ========== */
+    .app-header {
+      background: linear-gradient(180deg, rgba(8, 9, 12, 0.95), rgba(8, 9, 12, 0.85));
+      backdrop-filter: blur(16px) saturate(1.5);
+      -webkit-backdrop-filter: blur(16px) saturate(1.5);
+      border-bottom: 1px solid rgba(240, 179, 75, 0.15);
+      position: relative;
+    }
+    .app-header::after {
+      content: '';
+      position: absolute;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(240, 179, 75, 0.5), transparent);
+    }
+
+    .logo-box {
+      position: relative;
+      overflow: hidden;
+    }
+    .logo-box::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.4), transparent);
+      animation: shimmer 3s infinite;
+    }
+
+    /* ========== SEARCH INPUT ========== */
+    .search-input {
+      transition: all 0.3s;
+      background: rgba(26, 32, 41, 0.7);
+      border: 1px solid rgba(42, 50, 64, 0.8);
+    }
+    .search-input:focus {
+      background: rgba(26, 32, 41, 1);
+      border-color: rgba(240, 179, 75, 0.6);
+      box-shadow: 
+        0 0 0 3px rgba(240, 179, 75, 0.1),
+        0 0 20px rgba(240, 179, 75, 0.15);
+    }
+
+    /* ========== PLAYER ========== */
+    .audio-player {
+      background: linear-gradient(180deg, rgba(17, 21, 29, 0.95), rgba(13, 16, 23, 0.98));
+      backdrop-filter: blur(20px) saturate(1.5);
+      -webkit-backdrop-filter: blur(20px) saturate(1.5);
+      border-top: 1px solid rgba(240, 179, 75, 0.25);
+      box-shadow: 
+        0 -10px 40px -10px rgba(0, 0, 0, 0.8),
+        0 -1px 0 rgba(240, 179, 75, 0.15);
+      position: relative;
+    }
+    .audio-player::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 60%;
+      height: 1px;
+      background: linear-gradient(90deg, transparent, rgba(240, 179, 75, 0.6), transparent);
+    }
+
+    /* ========== HERO PORTRAIT (Detail) ========== */
+    .detail-portrait {
+      position: relative;
+      border-radius: 24px;
+      overflow: hidden;
+      box-shadow: 
+        0 0 0 2px rgba(240, 179, 75, 0.3),
+        0 20px 60px -15px rgba(240, 179, 75, 0.4),
+        inset 0 0 40px rgba(0, 0, 0, 0.5);
+    }
+    .detail-portrait::after {
+      content: '';
+      position: absolute;
+      inset: 0;
+      border-radius: inherit;
+      box-shadow: inset 0 0 30px rgba(240, 179, 75, 0.15);
+      pointer-events: none;
+    }
+
+    /* ========== ROLE ICON ========== */
+    .role-badge {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 0.3rem;
+    }
+    .role-icon-img {
+      width: 16px;
+      height: 16px;
+      flex-shrink: 0;
+      object-fit: contain;
+      vertical-align: middle;
+      filter: drop-shadow(0 0 3px rgba(240, 179, 75, 0.6));
+      transition: transform 0.3s;
+    }
+    .role-icon-img-lg {
+      width: 24px;
+      height: 24px;
+      flex-shrink: 0;
+      object-fit: contain;
+      vertical-align: middle;
+      filter: drop-shadow(0 0 4px rgba(240, 179, 75, 0.7));
+    }
+    .hero-card:hover .role-icon-img {
+      transform: scale(1.15);
+    }
+    .category-pill.active .role-icon-img {
+      filter: brightness(0.3) drop-shadow(0 0 3px rgba(0, 0, 0, 0.5));
+    }
+
+    /* ========== HERO GRID ========== */
+    .hero-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(140px, 1fr));
+      gap: 1rem;
+    }
+    @media (min-width: 480px) {
+      .hero-grid { grid-template-columns: repeat(auto-fill, minmax(160px, 1fr)); gap: 1.25rem; }
+    }
+    @media (min-width: 1024px) {
+      .hero-grid { grid-template-columns: repeat(auto-fill, minmax(180px, 1fr)); gap: 1.5rem; }
+    }
+
+    /* ========== PLAY STATE ANIMATION ========== */
+    @keyframes soundWave {
+      0%, 100% { transform: scaleY(1); }
+      50% { transform: scaleY(1.5); }
+    }
+    .sound-wave span {
+      display: inline-block;
+      width: 2px;
+      height: 8px;
+      background: #f0b34b;
+      margin: 0 1px;
+      border-radius: 1px;
+      animation: soundWave 0.8s ease-in-out infinite;
+    }
+    .sound-wave span:nth-child(2) { animation-delay: 0.1s; }
+    .sound-wave span:nth-child(3) { animation-delay: 0.2s; }
+    .sound-wave span:nth-child(4) { animation-delay: 0.3s; }
+
+    /* ========== SAFE AREA ========== */
+    @media (max-width: 640px) {
+      .content-bottom-pad { padding-bottom: 220px; }
+    }
+    @media (min-width: 641px) {
+      .content-bottom-pad { padding-bottom: 140px; }
+    }
+
+    /* ========== FADE IN ========== */
+    @keyframes fadeInUp {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+    .fade-in-up {
+      animation: fadeInUp 0.4s ease-out;
+    }
+  </style>
+</head>
+<body class="text-textMain font-display min-h-screen flex flex-col antialiased">
+
+  <div id="app" class="flex-1 flex flex-col content-bottom-pad">
+
+    <!-- HEADER -->
+    <header class="app-header sticky top-0 z-30 px-4 py-3 sm:py-4">
+      <div class="max-w-7xl mx-auto flex flex-wrap items-center justify-between gap-3">
+        <div class="flex items-center gap-2.5 cursor-pointer select-none group" onclick="window.scrollTo({top:0,behavior:'smooth'})">
+          <div class="logo-box w-9 h-9 rounded-lg bg-gradient-to-br from-accent to-accentDim flex items-center justify-center shadow-lg shadow-accent/30 group-hover:shadow-accent/60 transition-shadow">
+            <svg class="w-5 h-5 text-dark relative z-10" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2L2 7v10l10 5 10-5V7l-10-5zm0 2.18L20 8.5v7L12 19.82 4 15.5v-7L12 4.18zM12 8a4 4 0 100 8 4 4 0 000-8z"/>
+            </svg>
+          </div>
+          <div class="flex flex-col leading-none">
+            <span class="text-base sm:text-lg font-black tracking-tight">MLBB Voice<span class="text-accent">Hub</span></span>
+            <span class="text-[9px] text-textDim uppercase tracking-[0.25em] mt-0.5">Hero Voice Archive</span>
+          </div>
+        </div>
+
+        <div class="flex items-center gap-3 flex-1 max-w-md ml-auto">
+          <div class="relative flex-1 min-w-[140px]">
+            <input id="globalSearch" type="search" placeholder="Search heroes..." 
+                   class="search-input w-full rounded-xl py-2.5 pl-10 pr-3 text-sm text-textMain placeholder:text-textDim/70 focus:outline-none transition" />
+            <svg class="absolute left-3.5 top-1/2 -translate-y-1/2 w-4 h-4 text-textDim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M21 21l-6-6m2-5a7 7 0 11-14 0 7 7 0 0114 0z"/>
+            </svg>
+          </div>
+          <div class="hidden sm:flex items-center gap-1.5 text-xs text-textDim whitespace-nowrap">
+            <span id="heroCountBadge" class="bg-panelLight/80 border border-cardBorder px-2.5 py-1 rounded-lg font-bold text-accent">0</span>
+            <span class="uppercase tracking-wider text-[10px]">heroes</span>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- MAIN -->
+    <main class="flex-1 max-w-7xl w-full mx-auto px-4 py-6 sm:py-10">
+
+      <!-- HERO GRID -->
+      <section id="heroGridSection">
+        <div class="mb-8 sm:mb-10">
+          <div class="flex items-center gap-3 mb-2">
+            <div class="h-6 w-1 bg-gradient-to-b from-accent to-purple rounded-full"></div>
+            <h1 class="text-xl sm:text-2xl font-black tracking-tight">HERO ARCHIVE</h1>
+          </div>
+          <p class="text-textDim text-xs sm:text-sm max-w-2xl mb-6 ml-4">
+            Browse and play voice lines from your favourite Mobile Legends heroes. 
+            <span class="text-textDim/50">Community-made archive — not affiliated with Moonton.</span>
+          </p>
+
+          <div class="glass rounded-2xl p-4 sm:p-5 space-y-4">
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-3.5 h-3.5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2L2 7v10l10 5 10-5V7l-10-5z"/>
+                </svg>
+                <span class="text-[10px] uppercase tracking-[0.2em] text-textDim font-semibold">Filter by Role</span>
+              </div>
+              <div id="roleFilters" class="flex flex-wrap gap-2 items-center"></div>
+            </div>
+
+            <div class="h-px bg-gradient-to-r from-transparent via-cardBorder to-transparent"></div>
+
+            <div>
+              <div class="flex items-center gap-2 mb-2">
+                <svg class="w-3.5 h-3.5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 2l2 7h7l-5.5 4.5 2 7L12 16l-5.5 4.5 2-7L3 9h7z"/>
+                </svg>
+                <span class="text-[10px] uppercase tracking-[0.2em] text-textDim font-semibold">Filter by Letter</span>
+              </div>
+              <div id="alphabetFilters" class="flex flex-wrap gap-1.5 items-center"></div>
+            </div>
+          </div>
+        </div>
+
+        <div id="heroGrid" class="hero-grid"></div>
+
+        <div id="heroEmptyState" class="hidden flex-col items-center justify-center py-20 text-center">
+          <div class="w-20 h-20 rounded-2xl bg-panelLight/50 border border-cardBorder flex items-center justify-center mb-4">
+            <svg class="w-10 h-10 text-textDim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M9.172 16.172a4 4 0 015.656 0M9 10h.01M15 10h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/>
+            </svg>
+          </div>
+          <h3 class="text-lg font-bold mb-1">No heroes found</h3>
+          <p class="text-textDim text-sm max-w-xs">Try adjusting your search or filter to find what you're looking for.</p>
+        </div>
+      </section>
+
+      <!-- HERO DETAIL -->
+      <section id="heroDetailSection" class="hidden fade-in-up">
+        <button id="backToGridBtn" class="flex items-center gap-2 text-sm text-textDim hover:text-accent transition mb-6 group">
+          <div class="w-8 h-8 rounded-lg bg-panelLight/60 border border-cardBorder flex items-center justify-center group-hover:border-accent/50 transition">
+            <svg class="w-4 h-4 group-hover:-translate-x-0.5 transition" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7"/>
+            </svg>
+          </div>
+          <span class="font-medium">Back to heroes</span>
+        </button>
+
+        <div class="glass rounded-3xl p-5 sm:p-8 mb-8">
+          <div class="flex flex-col sm:flex-row gap-5 sm:gap-8 items-center sm:items-start">
+            <div id="portraitWrapper" class="detail-portrait relative w-36 h-36 sm:w-48 sm:h-48 bg-panelLight flex-shrink-0">
+              <img id="detailHeroPortrait" alt="" class="w-full h-full object-cover" />
+              <div id="portraitFallback" class="hidden absolute inset-0 img-fallback rounded-3xl">Image unavailable</div>
+            </div>
+
+            <div class="flex-1 text-center sm:text-left">
+              <div class="flex items-center justify-center sm:justify-start gap-2 mb-2">
+                <div class="h-1.5 w-1.5 rounded-full bg-accent animate-pulse"></div>
+                <span class="text-[10px] uppercase tracking-[0.25em] text-accent font-bold">Hero Profile</span>
+              </div>
+              <h2 id="detailHeroName" class="text-3xl sm:text-5xl font-black tracking-tight mb-3"></h2>
+              <div id="detailHeroRole" class="text-accent text-sm uppercase tracking-wider mb-3 flex items-center justify-center sm:justify-start gap-2 flex-wrap font-semibold"></div>
+              <div class="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-panelLight/60 border border-cardBorder">
+                <svg class="w-3.5 h-3.5 text-accent" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M12 3v10.55A4 4 0 1014 17V7h4V3h-6z"/>
+                </svg>
+                <span id="detailHeroVoiceCount" class="text-xs text-textDim font-medium"></span>
+              </div>
+
+              <div class="mt-5 max-w-md mx-auto sm:mx-0">
+                <input id="heroVoiceSearch" type="search" placeholder="Search voice lines..." 
+                       class="search-input w-full rounded-xl py-2.5 px-4 text-sm text-textMain placeholder:text-textDim/70 focus:outline-none transition" />
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="mb-6">
+          <div class="flex items-center gap-2 mb-3">
+            <div class="h-4 w-1 bg-gradient-to-b from-accent to-purple rounded-full"></div>
+            <span class="text-[11px] uppercase tracking-[0.2em] text-textDim font-bold">Categories</span>
+          </div>
+          <div id="categoryTabs" class="flex flex-wrap gap-2 pb-1"></div>
+        </div>
+
+        <div id="voiceLinesList" class="space-y-2.5"></div>
+
+        <div id="interactionsSection" class="hidden mt-10">
+          <div class="flex items-center gap-3 mb-4">
+            <div class="h-6 w-1 bg-gradient-to-b from-purple to-accent rounded-full"></div>
+            <h3 class="text-lg font-black tracking-tight flex items-center gap-2">
+              <span>HERO INTERACTIONS</span>
+              <span id="interactionsCount" class="text-xs text-textDim font-normal"></span>
+            </h3>
+          </div>
+          <div id="interactionsList" class="space-y-2.5"></div>
+        </div>
+
+        <div id="voiceEmptyState" class="hidden flex-col items-center justify-center py-16 text-center">
+          <div class="w-16 h-16 rounded-2xl bg-panelLight/50 border border-cardBorder flex items-center justify-center mb-3">
+            <svg class="w-8 h-8 text-textDim" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+              <path stroke-linecap="round" stroke-linejoin="round" stroke-width="1.5" d="M19 11a7 7 0 01-7 7m0 0a7 7 0 01-7-7m7 7v4m0 0H8m4 0h4m-4-8a3 3 0 01-3-3V5a3 3 0 116 0v6a3 3 0 01-3 3z"/>
+            </svg>
+          </div>
+          <p class="text-textDim text-sm">No voice lines available.</p>
+        </div>
+      </section>
+    </main>
+
+    <!-- GLOBAL PLAYER -->
+    <div id="globalPlayer" class="audio-player fixed bottom-0 left-0 right-0 z-40">
+      <div class="max-w-7xl mx-auto px-3 sm:px-4 py-3 sm:py-3.5">
+        <div class="flex items-center gap-2 mb-2 sm:mb-2.5 min-w-0">
+          <div class="flex items-center gap-1.5 shrink-0">
+            <div class="w-1.5 h-1.5 rounded-full bg-accent animate-pulse"></div>
+            <span class="text-[10px] uppercase tracking-wider text-textDim font-bold">Now Playing</span>
+          </div>
+          <span class="text-textDim text-[10px]">|</span>
+          <span id="playerHeroName" class="text-xs font-bold text-accent truncate max-w-[100px] sm:max-w-[140px]">—</span>
+          <span class="text-textDim text-[10px] hidden xs:inline">·</span>
+          <span id="playerCategory" class="text-[10px] uppercase tracking-wider text-textDim truncate max-w-[80px] sm:max-w-[120px] hidden xs:inline">—</span>
+          <span class="text-textDim text-[10px] hidden sm:inline">·</span>
+          <span id="playerText" class="text-[10px] sm:text-xs text-textDim/80 truncate flex-1 italic hidden sm:inline">"Select a voice line"</span>
+        </div>
+
+        <div class="flex items-center gap-2 sm:gap-3">
+          <button id="prevBtn" class="p-2 text-textDim hover:text-accent transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-panelLight/50 rounded-lg" disabled aria-label="Previous">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 6h2v12H6zm3.5 6l8.5 6V6z"/></svg>
+          </button>
+
+          <button id="playPauseBtn" class="p-2.5 bg-gradient-to-br from-accent to-accentDim rounded-full text-dark shadow-lg shadow-accent/30 hover:shadow-accent/60 transition-all hover:scale-105 active:scale-95 disabled:opacity-30 disabled:cursor-not-allowed disabled:hover:scale-100" disabled aria-label="Play or pause">
+            <svg id="playIcon" class="w-5 h-5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>
+            <svg id="pauseIcon" class="w-5 h-5 hidden" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>
+          </button>
+
+          <button id="nextBtn" class="p-2 text-textDim hover:text-accent transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-panelLight/50 rounded-lg" disabled aria-label="Next">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 18l8.5-6L6 6v12zM16 6v12h2V6h-2z"/></svg>
+          </button>
+
+          <button id="replayBtn" class="p-2 text-textDim hover:text-accent transition disabled:opacity-30 disabled:cursor-not-allowed hover:bg-panelLight/50 rounded-lg" disabled aria-label="Replay">
+            <svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M12 5V1L7 6l5 5V7c3.31 0 6 2.69 6 6s-2.69 6-6 6-6-2.69-6-6H4c0 4.42 3.58 8 8 8s8-3.58 8-8-3.58-8-8-8z"/></svg>
+          </button>
+
+          <div class="flex-1 flex items-center gap-2 min-w-0">
+            <span id="currentTime" class="text-[10px] sm:text-xs text-textDim w-9 text-right tabular-nums font-medium">0:00</span>
+            <input id="progressBar" type="range" min="0" max="100" value="0" step="0.1" class="progress-slider flex-1 h-1 rounded-full appearance-none" disabled />
+            <span id="durationTime" class="text-[10px] sm:text-xs text-textDim w-9 tabular-nums font-medium">0:00</span>
+          </div>
+
+          <div class="hidden xs:flex items-center gap-1.5 pl-2 border-l border-cardBorder">
+            <svg class="w-3.5 h-3.5 text-textDim" fill="currentColor" viewBox="0 0 24 24"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3c0-1.77-1.02-3.29-2.5-4.03v8.05c1.48-.73 2.5-2.25 2.5-4.02z"/></svg>
+            <input id="volumeSlider" type="range" min="0" max="1" step="0.01" value="0.8" class="volume-slider w-14 sm:w-20 h-1 rounded-full appearance-none bg-panelLighter" />
+          </div>
+        </div>
+
+        <div id="playerError" class="hidden text-[10px] sm:text-xs text-red-400 mt-2 text-center font-medium">⚠ Audio file not found.</div>
+      </div>
+      <audio id="audioPlayer" preload="metadata"></audio>
+    </div>
+  </div>
+
+  <script>
+    // ============================================
+    // 🎭 ROLE ICONS — IMAGE FILES + SVG FALLBACK
+    // ============================================
+    // Unahin ang PNG/JPG icons sa assets/icons/
+    // Kung wala, awtomatikong mag-fallback sa inline SVG
+    // ============================================
+
+    // Path base (walang extension — susubukan ang .png, .jpg, .jpeg, .webp, .gif)
+    const ROLE_IMAGE_PATHS = {
+      'Assassin': 'assets/icons/Assassin',
+      'Fighter':  'assets/icons/Fighter',
+      'Mage':     'assets/icons/Mage',
+      'Marksman': 'assets/icons/Marksman',
+      'Tank':     'assets/icons/Tank',
+      'Support':  'assets/icons/Support',
+      'All':      'assets/icons/All',   // optional
+    };
+
+    const ROLE_ICON_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp', 'gif', 'svg'];
+
+    // Fallback inline SVG (kung wala talagang image file)
+    const ROLE_SVG_FALLBACK = {
+      'Assassin': `<path d="M12 2 L20 8 L17 22 L12 18 L7 22 L4 8 Z" fill="currentColor" opacity="0.18"/><path d="M12 2 L20 8 L17 22 L12 18 L7 22 L4 8 Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/><circle cx="10" cy="13" r="0.9" fill="currentColor"/><circle cx="14" cy="13" r="0.9" fill="currentColor"/>`,
+      'Fighter':  `<path d="M12 2 L21 6 L21 13 C21 18 17 21 12 23 C7 21 3 18 3 13 L3 6 Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M12 7 L12 18 M8 10 L16 10" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+      'Mage':     `<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><circle cx="12" cy="12" r="2" fill="currentColor"/>`,
+      'Marksman': `<circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.8" fill="none"/><circle cx="12" cy="12" r="4" stroke="currentColor" stroke-width="1.5" fill="none"/><path d="M12 1 L12 5 M12 19 L12 23 M1 12 L5 12 M19 12 L23 12" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>`,
+      'Tank':     `<path d="M12 2 L20 5 L20 12 C20 17.5 16 20.5 12 22.5 C8 20.5 4 17.5 4 12 L4 5 Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/><circle cx="12" cy="12" r="2" fill="currentColor"/>`,
+      'Support':  `<path d="M12 21 C12 21 3 15 3 9 C3 6 5 4 8 4 C10 4 11 5 12 7 C13 5 14 4 16 4 C19 4 21 6 21 9 C21 15 12 21 12 21 Z" stroke="currentColor" stroke-width="1.8" fill="none" stroke-linejoin="round"/><path d="M12 8 L12 16 M8 12 L16 12" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>`,
+    };
+
+    // Role colors para sa SVG fallback
+    const ROLE_COLORS_SVG = {
+      'Assassin': 'text-red-400',
+      'Fighter':  'text-orange-400',
+      'Mage':     'text-purple-400',
+      'Marksman': 'text-yellow-400',
+      'Tank':     'text-blue-400',
+      'Support':  'text-green-400',
+      'All':      'text-accent',
+    };
+
+    /**
+     * Gumagawa ng role icon(s).
+     * Unang subukan ang image file mula sa assets/icons/, kung wala,
+     * mag-fallback sa inline SVG.
+     */
+    function renderRoleIcons(roleString, large = false) {
+      if (!roleString) return `<span class="italic opacity-60">Unknown</span>`;
+      const roles = roleString.split('/').map(r => r.trim()).filter(Boolean);
+      const sizeClass = large ? 'role-icon-img-lg' : 'role-icon-img';
+
+      return roles.map(role => {
+        const basePath = ROLE_IMAGE_PATHS[role];
+
+        // Kung walang path na naka-define → SVG fallback agad
+        if (!basePath) {
+          return renderSVGFallback(role, large);
+        }
+
+        // Subukan ang image files, kung mabigo → SVG fallback
+        return `
+          <span class="role-badge" title="${role}" data-role="${role}">
+            <img src="${basePath}.png"
+                 alt="${role}"
+                 class="${sizeClass}"
+                 data-icon-base="${basePath}"
+                 data-icon-tried="png"
+                 data-role-name="${role}"
+                 data-large="${large}"
+                 onerror="handleRoleIconError(this)" />
+            <span>${role}</span>
+          </span>
+        `;
+      }).join('<span class="opacity-30 mx-0.5">·</span>');
+    }
+
+    /**
+     * Nag-ge-generate ng SVG fallback markup
+     */
+    function renderSVGFallback(role, large = false) {
+      const svg = ROLE_SVG_FALLBACK[role];
+      const colorClass = ROLE_COLORS_SVG[role] || 'text-accent';
+      const sizeClass = large ? 'w-5 h-5' : 'w-3.5 h-3.5';
+
+      if (!svg) {
+        return `<span class="role-badge ${colorClass} opacity-80"><span>${role}</span></span>`;
+      }
+
+      return `
+        <span class="role-badge ${colorClass}" title="${role}">
+          <svg class="${sizeClass}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            ${svg}
+          </svg>
+          <span>${role}</span>
+        </span>
+      `;
+    }
+
+    /**
+     * Handle img onerror — subukan ang ibang extensions
+     * Kung wala lahat, i-replace ng SVG fallback
+     */
+    function handleRoleIconError(imgEl) {
+      const basePath = imgEl.dataset.iconBase;
+      const role = imgEl.dataset.roleName;
+      const large = imgEl.dataset.large === 'true';
+
+      if (!basePath) {
+        replaceWithSVG(imgEl, role, large);
+        return;
+      }
+
+      const tried = imgEl.dataset.iconTried ? imgEl.dataset.iconTried.split(',') : ['png'];
+      const nextExt = ROLE_ICON_EXTENSIONS.find(ext => !tried.includes(ext));
+
+      if (nextExt) {
+        tried.push(nextExt);
+        imgEl.dataset.iconTried = tried.join(',');
+        imgEl.src = `${basePath}.${nextExt}`;
+      } else {
+        // Wala nang extension na susubukan → SVG fallback
+        replaceWithSVG(imgEl, role, large);
+      }
+    }
+
+    /**
+     * I-replace ang buong role-badge span ng SVG fallback
+     */
+    function replaceWithSVG(imgEl, role, large) {
+      const badge = imgEl.closest('.role-badge');
+      if (!badge) return;
+
+      const svg = ROLE_SVG_FALLBACK[role];
+      const colorClass = ROLE_COLORS_SVG[role] || 'text-accent';
+      const sizeClass = large ? 'w-5 h-5' : 'w-3.5 h-3.5';
+
+      if (svg) {
+        badge.className = `role-badge ${colorClass}`;
+        badge.innerHTML = `
+          <svg class="${sizeClass}" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            ${svg}
+          </svg>
+          <span>${role}</span>
+        `;
+      } else {
+        // Wala ring SVG — text na lang
+        badge.innerHTML = `<span class="opacity-80">${role}</span>`;
+      }
+    }
+
+    // ============================================
+    // SMART IMAGE LOADER (hero portraits)
+    // ============================================
+    const IMAGE_EXTENSIONS = ['png', 'jpg', 'jpeg', 'webp', 'gif'];
+
+    function attachSmartImage(imgEl, basePath, fallbackEl) {
+      if (!basePath || basePath.trim() === '') {
+        imgEl.style.display = 'none';
+        if (fallbackEl) fallbackEl.classList.remove('hidden');
+        return;
+      }
+
+      let currentExtIndex = 0;
+      let extensionsToTry = [];
+
+      const hasExt = /\.(png|jpg|jpeg|webp|gif)$/i.test(basePath);
+      const baseWithoutExt = hasExt ? basePath.replace(/\.(png|jpg|jpeg|webp|gif)$/i, '') : basePath;
+
+      if (hasExt) {
+        const declaredExt = basePath.match(/\.(png|jpg|jpeg|webp|gif)$/i)[1].toLowerCase();
+        extensionsToTry = [declaredExt, ...IMAGE_EXTENSIONS.filter(e => e !== declaredExt)];
+      } else {
+        extensionsToTry = [...IMAGE_EXTENSIONS];
+      }
+
+      function tryNext() {
+        if (currentExtIndex >= extensionsToTry.length) {
+          imgEl.style.display = 'none';
+          if (fallbackEl) fallbackEl.classList.remove('hidden');
+          return;
+        }
+
+        const ext = extensionsToTry[currentExtIndex];
+        const url = `${baseWithoutExt}.${ext}`;
+
+        const probe = new Image();
+        probe.onload = () => {
+          imgEl.src = url;
+          imgEl.style.display = '';
+          if (fallbackEl) fallbackEl.classList.add('hidden');
+        };
+        probe.onerror = () => {
+          currentExtIndex++;
+          tryNext();
+        };
+        probe.src = url;
+      }
+
+      tryNext();
+    }
+
+    // ============================================
+    // STATE
+    // ============================================
+    const state = {
+      heroes: [],
+      currentView: 'grid',
+      selectedHeroId: null,
+      searchQuery: '',
+      roleFilter: 'All',
+      letterFilter: 'All',
+      categoryFilter: 'All',
+      heroVoiceSearch: '',
+      filteredHeroes: [],
+      currentVoiceLines: [],
+      currentVoiceIndex: -1,
+      isPlaying: false,
+      currentHero: null,
+    };
+
+    const el = {
+      heroGrid: document.getElementById('heroGrid'),
+      heroEmptyState: document.getElementById('heroEmptyState'),
+      roleFilters: document.getElementById('roleFilters'),
+      alphabetFilters: document.getElementById('alphabetFilters'),
+      heroCountBadge: document.getElementById('heroCountBadge'),
+      globalSearch: document.getElementById('globalSearch'),
+      heroGridSection: document.getElementById('heroGridSection'),
+      heroDetailSection: document.getElementById('heroDetailSection'),
+      backToGridBtn: document.getElementById('backToGridBtn'),
+      detailHeroPortrait: document.getElementById('detailHeroPortrait'),
+      portraitFallback: document.getElementById('portraitFallback'),
+      detailHeroName: document.getElementById('detailHeroName'),
+      detailHeroRole: document.getElementById('detailHeroRole'),
+      detailHeroVoiceCount: document.getElementById('detailHeroVoiceCount'),
+      heroVoiceSearch: document.getElementById('heroVoiceSearch'),
+      categoryTabs: document.getElementById('categoryTabs'),
+      voiceLinesList: document.getElementById('voiceLinesList'),
+      voiceEmptyState: document.getElementById('voiceEmptyState'),
+      interactionsSection: document.getElementById('interactionsSection'),
+      interactionsList: document.getElementById('interactionsList'),
+      interactionsCount: document.getElementById('interactionsCount'),
+      playerHeroName: document.getElementById('playerHeroName'),
+      playerCategory: document.getElementById('playerCategory'),
+      playerText: document.getElementById('playerText'),
+      playPauseBtn: document.getElementById('playPauseBtn'),
+      playIcon: document.getElementById('playIcon'),
+      pauseIcon: document.getElementById('pauseIcon'),
+      prevBtn: document.getElementById('prevBtn'),
+      nextBtn: document.getElementById('nextBtn'),
+      replayBtn: document.getElementById('replayBtn'),
+      progressBar: document.getElementById('progressBar'),
+      currentTime: document.getElementById('currentTime'),
+      durationTime: document.getElementById('durationTime'),
+      volumeSlider: document.getElementById('volumeSlider'),
+      playerError: document.getElementById('playerError'),
+    };
+
+    const audio = document.getElementById('audioPlayer');
+
+    function formatTime(seconds) {
+      if (!seconds || isNaN(seconds)) return '0:00';
+      const m = Math.floor(seconds / 60);
+      const s = Math.floor(seconds % 60);
+      return `${m}:${s.toString().padStart(2, '0')}`;
+    }
+
+    function debounce(fn, delay) {
+      let timer;
+      return (...args) => {
+        clearTimeout(timer);
+        timer = setTimeout(() => fn(...args), delay);
+      };
+    }
+
+    // ============================================
+    // LOAD DATA
+    // ============================================
+    async function loadHeroes() {
+      try {
+        const res = await fetch('data/heroes.json');
+        if (!res.ok) throw new Error('Failed to load heroes.json');
+        const data = await res.json();
+        state.heroes = data.heroes || [];
+        state.filteredHeroes = [...state.heroes];
+        el.heroCountBadge.textContent = state.heroes.length;
+        renderRoleFilters();
+        renderAlphabetFilters();
+        renderHeroGrid();
+      } catch (err) {
+        console.error('Error loading heroes:', err);
+        el.heroGrid.innerHTML = `<div class="col-span-full text-center py-16 text-red-400">Error loading hero data. Please check heroes.json.</div>`;
+        el.heroEmptyState.classList.add('hidden');
+      }
+    }
+
+    // ============================================
+    // ROLE FILTERS
+    // ============================================
+    function renderRoleFilters() {
+      const allRoles = new Set();
+      state.heroes.forEach(h => {
+        if (h.role) {
+          h.role.split('/').forEach(r => {
+            const trimmed = r.trim();
+            if (trimmed) allRoles.add(trimmed);
+          });
+        }
+      });
+
+      const roles = ['All', ...Array.from(allRoles).sort()];
+      el.roleFilters.innerHTML = roles.map(role => {
+        let iconHtml = '';
+        if (role !== 'All' && ROLE_IMAGE_PATHS[role]) {
+          iconHtml = `<img src="${ROLE_IMAGE_PATHS[role]}.png" alt="${role}" class="role-icon-img" data-icon-base="${ROLE_IMAGE_PATHS[role]}" data-icon-tried="png" data-role-name="${role}" data-large="false" onerror="handleRoleIconError(this)" />`;
+        }
+        return `
+          <button data-role="${role}" class="category-pill text-xs px-3.5 py-1.5 rounded-full border border-cardBorder bg-panelLight/60 hover:border-accent/50 transition ${state.roleFilter === role ? 'active' : ''}">
+            <span class="role-badge">
+              ${iconHtml}
+              <span>${role}</span>
+            </span>
+          </button>
+        `;
+      }).join('');
+
+      el.roleFilters.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.roleFilter = btn.dataset.role;
+          renderRoleFilters();
+          applyHeroFilters();
+        });
+      });
+    }
+
+    // ============================================
+    // ALPHABET FILTERS
+    // ============================================
+    function renderAlphabetFilters() {
+      const letters = new Set();
+      state.heroes.forEach(h => {
+        if (h.name) {
+          const first = h.name.trim().charAt(0).toUpperCase();
+          if (/[A-Z]/.test(first)) letters.add(first);
+        }
+      });
+
+      const sortedLetters = ['All', ...Array.from(letters).sort()];
+
+      el.alphabetFilters.innerHTML = sortedLetters.map(letter => `
+        <button data-letter="${letter}" 
+                class="letter-pill text-[11px] font-bold w-7 h-7 sm:w-8 sm:h-8 rounded-lg border border-cardBorder bg-panelLight/60 hover:border-accent/50 transition flex items-center justify-center ${state.letterFilter === letter ? 'active' : ''}">
+          ${letter}
+        </button>
+      `).join('');
+
+      el.alphabetFilters.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.letterFilter = btn.dataset.letter;
+          renderAlphabetFilters();
+          applyHeroFilters();
+        });
+      });
+    }
+
+    // ============================================
+    // HERO GRID
+    // ============================================
+    function renderHeroGrid() {
+      const heroes = state.filteredHeroes;
+
+      if (heroes.length === 0) {
+        el.heroGrid.innerHTML = '';
+        el.heroEmptyState.classList.remove('hidden');
+        el.heroEmptyState.classList.add('flex');
+        return;
+      }
+
+      el.heroEmptyState.classList.add('hidden');
+      el.heroEmptyState.classList.remove('flex');
+
+      el.heroGrid.innerHTML = heroes.map(hero => {
+        const voiceCount = hero.voiceLines ? hero.voiceLines.length : 0;
+        const roleIconsHtml = renderRoleIcons(hero.role, false);
+        return `
+          <div class="hero-card group cursor-pointer rounded-2xl fade-in-up" data-hero-id="${hero.id}">
+            <div class="glow-ring"></div>
+            <div class="relative w-full aspect-[3/4] overflow-hidden">
+              <img data-portrait="${hero.portrait || ''}" alt="${hero.name}" loading="lazy"
+                   class="hero-portrait w-full h-full object-cover" />
+              <div class="hidden absolute inset-0 img-fallback" data-fallback>Image unavailable</div>
+              
+              <div class="absolute inset-0 bg-gradient-to-t from-dark via-dark/40 to-transparent"></div>
+              
+              <div class="absolute top-2.5 right-2.5 bg-dark/80 backdrop-blur-md border border-accent/20 rounded-lg px-2 py-1 text-[10px] font-bold text-accent shadow-lg">
+                ${voiceCount}
+              </div>
+              
+              <div class="absolute bottom-0 left-0 right-0 p-3">
+                <h3 class="text-sm sm:text-base font-black truncate tracking-tight mb-1">${hero.name}</h3>
+                <div class="text-[9px] sm:text-[10px] text-accent uppercase tracking-wider flex items-center gap-1 flex-wrap font-semibold">${roleIconsHtml}</div>
+              </div>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      el.heroGrid.querySelectorAll('.hero-card').forEach(card => {
+        const img = card.querySelector('[data-portrait]');
+        const fallback = card.querySelector('[data-fallback]');
+        const basePath = img.dataset.portrait;
+        attachSmartImage(img, basePath, fallback);
+      });
+
+      el.heroGrid.querySelectorAll('[data-hero-id]').forEach(card => {
+        card.addEventListener('click', () => openHeroDetail(card.dataset.heroId));
+      });
+    }
+
+    // ============================================
+    // FILTERS
+    // ============================================
+    function applyHeroFilters() {
+      const q = state.searchQuery.toLowerCase().trim();
+      let filtered = state.heroes;
+
+      if (state.roleFilter !== 'All') {
+        filtered = filtered.filter(h => {
+          if (!h.role) return false;
+          const heroRoles = h.role.split('/').map(r => r.trim());
+          return heroRoles.includes(state.roleFilter);
+        });
+      }
+
+      if (state.letterFilter !== 'All') {
+        filtered = filtered.filter(h => {
+          if (!h.name) return false;
+          const first = h.name.trim().charAt(0).toUpperCase();
+          return first === state.letterFilter;
+        });
+      }
+
+      if (q) {
+        filtered = filtered.filter(hero => {
+          const nameMatch = hero.name.toLowerCase().includes(q);
+          const roleMatch = (hero.role || '').toLowerCase().includes(q);
+          const voiceMatch = (hero.voiceLines || []).some(v =>
+            (v.text || '').toLowerCase().includes(q) ||
+            (v.category || '').toLowerCase().includes(q)
+          );
+          return nameMatch || roleMatch || voiceMatch;
+        });
+      }
+
+      state.filteredHeroes = filtered;
+      renderHeroGrid();
+    }
+
+    // ============================================
+    // HERO DETAIL
+    // ============================================
+    function openHeroDetail(heroId) {
+      const hero = state.heroes.find(h => h.id === heroId);
+      if (!hero) return;
+
+      state.currentView = 'detail';
+      state.selectedHeroId = heroId;
+      state.currentHero = hero;
+      state.categoryFilter = 'All';
+      state.heroVoiceSearch = '';
+      el.heroVoiceSearch.value = '';
+
+      el.heroGridSection.classList.add('hidden');
+      el.heroDetailSection.classList.remove('hidden');
+      el.heroDetailSection.classList.remove('fade-in-up');
+      void el.heroDetailSection.offsetWidth;
+      el.heroDetailSection.classList.add('fade-in-up');
+
+      el.detailHeroPortrait.style.display = '';
+      el.detailHeroPortrait.removeAttribute('src');
+      el.portraitFallback.classList.add('hidden');
+
+      attachSmartImage(el.detailHeroPortrait, hero.portrait, el.portraitFallback);
+
+      el.detailHeroName.textContent = hero.name;
+      el.detailHeroRole.innerHTML = renderRoleIcons(hero.role, true);
+      const voiceCount = hero.voiceLines ? hero.voiceLines.length : 0;
+      el.detailHeroVoiceCount.textContent = `${voiceCount} voice line${voiceCount !== 1 ? 's' : ''}`;
+
+      renderCategoryTabs();
+      renderVoiceLines();
+      renderInteractions();
+
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    }
+
+    function backToGrid() {
+      state.currentView = 'grid';
+      state.selectedHeroId = null;
+      state.currentHero = null;
+      el.heroDetailSection.classList.add('hidden');
+      el.heroGridSection.classList.remove('hidden');
+      applyHeroFilters();
+    }
+
+    // ============================================
+    // CATEGORY TABS
+    // ============================================
+    function renderCategoryTabs() {
+      const hero = state.currentHero;
+      if (!hero || !hero.voiceLines) {
+        el.categoryTabs.innerHTML = '';
+        return;
+      }
+      const categories = ['All', ...new Set(hero.voiceLines.map(v => v.category).filter(Boolean))];
+      el.categoryTabs.innerHTML = categories.map(cat => `
+        <button data-category="${cat}" class="category-pill text-xs px-3.5 py-1.5 rounded-full border border-cardBorder bg-panelLight/60 hover:border-accent/50 transition ${state.categoryFilter === cat ? 'active' : ''}">
+          ${cat}
+        </button>
+      `).join('');
+
+      el.categoryTabs.querySelectorAll('button').forEach(btn => {
+        btn.addEventListener('click', () => {
+          state.categoryFilter = btn.dataset.category;
+          renderCategoryTabs();
+          renderVoiceLines();
+        });
+      });
+    }
+
+    // ============================================
+    // VOICE LINES
+    // ============================================
+    function renderVoiceLines() {
+      const hero = state.currentHero;
+      if (!hero || !hero.voiceLines || hero.voiceLines.length === 0) {
+        el.voiceLinesList.innerHTML = '';
+        el.voiceEmptyState.classList.remove('hidden');
+        el.voiceEmptyState.classList.add('flex');
+        el.voiceEmptyState.querySelector('p').textContent = 'No voice lines available.';
+        return;
+      }
+
+      el.voiceEmptyState.classList.add('hidden');
+      el.voiceEmptyState.classList.remove('flex');
+
+      let lines = [...hero.voiceLines];
+
+      if (state.categoryFilter !== 'All') {
+        lines = lines.filter(v => v.category === state.categoryFilter);
+      }
+
+      const q = state.heroVoiceSearch.toLowerCase().trim();
+      if (q) {
+        lines = lines.filter(v =>
+          (v.text || '').toLowerCase().includes(q) ||
+          (v.category || '').toLowerCase().includes(q)
+        );
+      }
+
+      if (lines.length === 0) {
+        el.voiceLinesList.innerHTML = '';
+        el.voiceEmptyState.classList.remove('hidden');
+        el.voiceEmptyState.classList.add('flex');
+        el.voiceEmptyState.querySelector('p').textContent = 'No voice lines match your search.';
+        return;
+      }
+
+      el.voiceLinesList.innerHTML = lines.map((vl) => {
+        const isActive = state.currentVoiceIndex !== -1 &&
+          state.currentVoiceLines[state.currentVoiceIndex]?.id === vl.id;
+        const isPlaying = isActive && state.isPlaying;
+        return `
+          <div class="voice-card rounded-xl border border-cardBorder bg-panelLight/40 p-3 sm:p-4 cursor-pointer ${isActive ? 'active' : ''}" data-voice-id="${vl.id}">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="text-[10px] uppercase tracking-[0.15em] font-bold text-accent/90">${vl.category || 'Other'}</span>
+                  ${isPlaying ? `
+                    <div class="sound-wave flex items-end h-3 gap-0.5">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                  ` : ''}
+                </div>
+                <p class="text-sm text-textMain/95 leading-relaxed font-medium">"${vl.text || 'No text'}"</p>
+              </div>
+              <button class="play-voice-btn flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-accent/20 to-accent/5 border border-accent/40 text-accent hover:from-accent hover:to-accentBright hover:text-dark hover:border-accent transition flex items-center justify-center shadow-lg shadow-accent/10" data-voice-id="${vl.id}" aria-label="Play voice line">
+                ${isPlaying 
+                  ? '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'
+                  : '<svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'
+                }
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      el.voiceLinesList.querySelectorAll('.voice-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.play-voice-btn')) return;
+          const voiceId = card.dataset.voiceId;
+          const hero = state.currentHero;
+          if (!hero) return;
+          const lines = filterVoiceLinesForHero(hero);
+          const idx = lines.findIndex(v => v.id === voiceId);
+          if (idx !== -1) playVoiceLineByIndex(idx, lines);
+        });
+      });
+
+      el.voiceLinesList.querySelectorAll('.play-voice-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          const voiceId = btn.dataset.voiceId;
+          const hero = state.currentHero;
+          if (!hero) return;
+          const lines = filterVoiceLinesForHero(hero);
+          const idx = lines.findIndex(v => v.id === voiceId);
+          if (idx !== -1) playVoiceLineByIndex(idx, lines);
+        });
+      });
+    }
+
+    function filterVoiceLinesForHero(hero) {
+      let lines = [...(hero.voiceLines || [])];
+      if (state.categoryFilter !== 'All') {
+        lines = lines.filter(v => v.category === state.categoryFilter);
+      }
+      const q = state.heroVoiceSearch.toLowerCase().trim();
+      if (q) {
+        lines = lines.filter(v =>
+          (v.text || '').toLowerCase().includes(q) ||
+          (v.category || '').toLowerCase().includes(q)
+        );
+      }
+      return lines;
+    }
+
+    // ============================================
+    // HERO INTERACTIONS
+    // ============================================
+    function renderInteractions() {
+      const hero = state.currentHero;
+      const interactions = hero?.interactions || [];
+
+      if (interactions.length === 0) {
+        el.interactionsSection.classList.add('hidden');
+        return;
+      }
+
+      el.interactionsSection.classList.remove('hidden');
+      el.interactionsCount.textContent = `(${interactions.length})`;
+
+      el.interactionsList.innerHTML = interactions.map((inter, idx) => {
+        const lineId = `interaction-${hero.id}-${idx}`;
+        const isActive = state.currentVoiceIndex !== -1 &&
+          state.currentVoiceLines[state.currentVoiceIndex]?.id === lineId;
+        const isPlaying = isActive && state.isPlaying;
+        return `
+          <div class="interaction-card rounded-xl border border-cardBorder bg-gradient-to-r from-purple/5 via-panelLight/40 to-accent/5 p-3 sm:p-4 cursor-pointer ${isActive ? 'active' : ''}" 
+               data-interaction-index="${idx}">
+            <div class="flex items-center justify-between gap-3">
+              <div class="flex-1 min-w-0">
+                <div class="flex items-center gap-2 mb-1.5">
+                  <span class="text-[10px] uppercase tracking-[0.15em] font-bold text-purple">WITH ${(inter.with || 'Unknown').toUpperCase()}</span>
+                  ${isPlaying ? `
+                    <div class="sound-wave flex items-end h-3 gap-0.5">
+                      <span></span><span></span><span></span><span></span>
+                    </div>
+                  ` : ''}
+                </div>
+                <p class="text-sm text-textMain/95 leading-relaxed italic font-medium">"${inter.text || 'No text'}"</p>
+              </div>
+              <button class="play-interaction-btn flex-shrink-0 w-10 h-10 rounded-full bg-gradient-to-br from-purple/20 to-purple/5 border border-purple/40 text-purple hover:from-purple hover:to-purple hover:text-dark hover:border-purple transition flex items-center justify-center shadow-lg shadow-purple/10" 
+                      data-interaction-index="${idx}" aria-label="Play interaction">
+                ${isPlaying 
+                  ? '<svg class="w-4 h-4" fill="currentColor" viewBox="0 0 24 24"><path d="M6 19h4V5H6v14zm8-14v14h4V5h-4z"/></svg>'
+                  : '<svg class="w-4 h-4 ml-0.5" fill="currentColor" viewBox="0 0 24 24"><path d="M8 5v14l11-7z"/></svg>'
+                }
+              </button>
+            </div>
+          </div>
+        `;
+      }).join('');
+
+      el.interactionsList.querySelectorAll('.interaction-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.play-interaction-btn')) return;
+          playInteraction(parseInt(card.dataset.interactionIndex));
+        });
+      });
+
+      el.interactionsList.querySelectorAll('.play-interaction-btn').forEach(btn => {
+        btn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          playInteraction(parseInt(btn.dataset.interactionIndex));
+        });
+      });
+    }
+
+    function playInteraction(index) {
+      const hero = state.currentHero;
+      if (!hero || !hero.interactions) return;
+      const inter = hero.interactions[index];
+      if (!inter) return;
+
+      const lines = hero.interactions.map((i, idx) => ({
+        id: `interaction-${hero.id}-${idx}`,
+        category: `Interaction w/ ${i.with}`,
+        text: i.text,
+        audio: i.audio,
+      }));
+
+      playVoiceLineByIndex(index, lines);
+    }
+
+    // ============================================
+    // PLAY
+    // ============================================
+    function playVoiceLineByIndex(index, lines) {
+      if (!lines || index < 0 || index >= lines.length) return;
+      state.currentVoiceLines = lines;
+      state.currentVoiceIndex = index;
+      const vl = lines[index];
+      const hero = state.currentHero;
+
+      el.playerHeroName.textContent = hero ? hero.name : 'Unknown';
+      el.playerCategory.textContent = vl.category || 'Other';
+      el.playerText.textContent = `"${vl.text || 'No text'}"`;
+
+      el.playerError.classList.add('hidden');
+      audio.src = vl.audio || '';
+      audio.load();
+
+      const playPromise = audio.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          el.playerError.textContent = '⚠ Audio file not found or playback blocked.';
+          el.playerError.classList.remove('hidden');
+          state.isPlaying = false;
+          updatePlayPauseUI();
+        });
+      }
+
+      state.isPlaying = true;
+      updatePlayPauseUI();
+      updatePlayerButtons();
+      renderVoiceLines();
+      renderInteractions();
+    }
+
+    function updatePlayPauseUI() {
+      if (state.isPlaying) {
+        el.playIcon.classList.add('hidden');
+        el.pauseIcon.classList.remove('hidden');
+      } else {
+        el.playIcon.classList.remove('hidden');
+        el.pauseIcon.classList.add('hidden');
+      }
+    }
+
+    function updatePlayerButtons() {
+      const hasLines = state.currentVoiceLines.length > 0;
+      const idx = state.currentVoiceIndex;
+      el.prevBtn.disabled = !hasLines || idx <= 0;
+      el.nextBtn.disabled = !hasLines || idx >= state.currentVoiceLines.length - 1;
+      el.replayBtn.disabled = !hasLines || idx < 0;
+      el.playPauseBtn.disabled = !hasLines || idx < 0;
+    }
+
+    // ============================================
+    // EVENT LISTENERS
+    // ============================================
+    el.playPauseBtn.addEventListener('click', () => {
+      if (!audio.src) return;
+      if (audio.paused) {
+        audio.play().catch(() => {
+          el.playerError.textContent = '⚠ Audio file not found.';
+          el.playerError.classList.remove('hidden');
+        });
+        state.isPlaying = true;
+      } else {
+        audio.pause();
+        state.isPlaying = false;
+      }
+      updatePlayPauseUI();
+      renderVoiceLines();
+      renderInteractions();
+    });
+
+    el.prevBtn.addEventListener('click', () => {
+      if (state.currentVoiceIndex > 0) {
+        playVoiceLineByIndex(state.currentVoiceIndex - 1, state.currentVoiceLines);
+      }
+    });
+
+    el.nextBtn.addEventListener('click', () => {
+      if (state.currentVoiceIndex < state.currentVoiceLines.length - 1) {
+        playVoiceLineByIndex(state.currentVoiceIndex + 1, state.currentVoiceLines);
+      }
+    });
+
+    el.replayBtn.addEventListener('click', () => {
+      if (state.currentVoiceIndex >= 0) {
+        playVoiceLineByIndex(state.currentVoiceIndex, state.currentVoiceLines);
+      }
+    });
+
+    audio.addEventListener('timeupdate', () => {
+      if (audio.duration) {
+        const progress = (audio.currentTime / audio.duration) * 100;
+        el.progressBar.value = progress;
+        el.currentTime.textContent = formatTime(audio.currentTime);
+      }
+    });
+
+    audio.addEventListener('loadedmetadata', () => {
+      el.durationTime.textContent = formatTime(audio.duration);
+      el.progressBar.disabled = false;
+    });
+
+    audio.addEventListener('ended', () => {
+      state.isPlaying = false;
+      updatePlayPauseUI();
+      renderVoiceLines();
+      renderInteractions();
+    });
+
+    audio.addEventListener('error', () => {
+      el.playerError.textContent = '⚠ Audio file not found.';
+      el.playerError.classList.remove('hidden');
+      state.isPlaying = false;
+      updatePlayPauseUI();
+    });
+
+    el.progressBar.addEventListener('input', () => {
+      if (audio.duration) {
+        audio.currentTime = (el.progressBar.value / 100) * audio.duration;
+      }
+    });
+
+    el.volumeSlider.addEventListener('input', () => {
+      audio.volume = parseFloat(el.volumeSlider.value);
+    });
+
+    el.globalSearch.addEventListener('input', debounce(() => {
+      state.searchQuery = el.globalSearch.value;
+      if (state.currentView === 'grid') {
+        applyHeroFilters();
+      }
+    }, 250));
+
+    el.heroVoiceSearch.addEventListener('input', debounce(() => {
+      state.heroVoiceSearch = el.heroVoiceSearch.value;
+      renderVoiceLines();
+    }, 200));
+
+    el.backToGridBtn.addEventListener('click', backToGrid);
+
+    document.addEventListener('DOMContentLoaded', () => {
+      loadHeroes();
+      audio.volume = 0.8;
+    });
+
+    document.addEventListener('keydown', (e) => {
+      if (e.code === 'Space' && !e.target.matches('input, textarea, button')) {
+        e.preventDefault();
+        el.playPauseBtn.click();
+      }
+      if (e.code === 'ArrowLeft' && !e.target.matches('input, textarea')) {
+        el.prevBtn.click();
+      }
+      if (e.code === 'ArrowRight' && !e.target.matches('input, textarea')) {
+        el.nextBtn.click();
+      }
+    });
+  </script>
+</body>
+</html>
