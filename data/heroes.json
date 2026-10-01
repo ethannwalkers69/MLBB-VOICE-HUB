@@ -32,7 +32,7 @@
       "id": "aldous",
       "name": "Aldous",
       "role": "Fighter",
-      "portrait": "assets/heroes/aldous.png",
+      "portrait": "assets/heroes/aldous.jpg",
       "voiceLines": [
         {
           "id": "aldous-select-01",
